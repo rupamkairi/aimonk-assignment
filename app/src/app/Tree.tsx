@@ -1,10 +1,12 @@
 import { useTree } from "@/store/tree.store";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export function Tree({ id, name, parentId, children, data }) {
   const { addChild, editChild } = useTree();
   const [expand, setExpand] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <div className="py-2">
@@ -23,13 +25,19 @@ export function Tree({ id, name, parentId, children, data }) {
             )}
           </button>
           <input
-            className="input input-bordered input-sm"
+            className={twMerge(
+              "input input-sm hover:input-bordered",
+              editMode ? "input-bordered" : "input-ghost cursor-default"
+            )}
             defaultValue={name}
-            onChange={() => {}}
+            onClick={() => {
+              setEditMode(true);
+            }}
             onBlur={(e) => {
               // console.log(id, e.target.value);
               const child = { id, parentId, name: e.target.value, data };
               editChild(child);
+              setEditMode(false);
             }}
           />
         </div>
@@ -48,6 +56,7 @@ export function Tree({ id, name, parentId, children, data }) {
           >
             Create Data for {id}
           </button> */}
+
           <button
             className="btn btn-sm"
             onClick={() => {
@@ -79,8 +88,14 @@ export function Tree({ id, name, parentId, children, data }) {
               {/* <label className="ml-5 label text-sm">{data}</label> */}
               <p className="text-xs pl-1">DATA</p>
               <input
-                className="input input-bordered input-sm"
+                className={twMerge(
+                  "input input-sm hover:input-bordered",
+                  editMode ? "input-bordered" : "input-ghost cursor-default"
+                )}
                 defaultValue={data}
+                onClick={() => {
+                  setEditMode(true);
+                }}
                 onBlur={(e) => {
                   const child = { id, parentId, name, data: e.target.value };
                   editChild(child);
