@@ -8,7 +8,7 @@ export const turso = createClient({
 
 export async function GET(/* request: Request */) {
   const { rows } = await turso.execute("SELECT * FROM tree_elements");
-  console.log(rows);
+  // console.log(rows);
   const data = {
     tree: parseArrayToTree(rows),
   };
@@ -32,6 +32,5 @@ export async function PATCH(request: Request) {
     sql: q,
     args: { id, name, data },
   });
-  console.log(rs, "Update");
   return Response.json({});
 }
