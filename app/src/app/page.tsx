@@ -1,9 +1,9 @@
 "use client";
 
-import ky from "ky";
-import { useEffect, useState } from "react";
-import { TreeInit } from "./Tree";
 import { useTree } from "@/store/tree.store";
+import ky from "ky";
+import { useEffect } from "react";
+import { ExportTree, TreeInit } from "./Tree";
 
 export default function Home() {
   const { tree, setTree } = useTree();
@@ -20,7 +20,16 @@ export default function Home() {
     })();
   }, []);
 
+  // console.log(parseArrayToTree(array));
+  // console.log(parseTreeToArray(parseArrayToTree(array)));
+
   if (!tree) return <div>Loading...</div>;
 
-  return <div>{<TreeInit tree={tree} />}</div>;
+  return (
+    <div className="container mx-auto font-mono">
+      {<TreeInit tree={tree} />}
+      <br />
+      <ExportTree />
+    </div>
+  );
 }
