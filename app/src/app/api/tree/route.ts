@@ -1,4 +1,3 @@
-import { parseArrayToTree } from "@/utils/tree-utils";
 import { createClient } from "@libsql/client/web";
 export const turso = createClient({
   // This should go into its own utility - we may want to reuse same instance rather than exhausting the connction pool.
@@ -10,7 +9,7 @@ export async function GET(/* request: Request */) {
   const { rows } = await turso.execute("SELECT * FROM tree_elements");
   // console.log(rows);
   const data = {
-    tree: parseArrayToTree(rows),
+    tree: rows,
   };
   return Response.json(data);
 }

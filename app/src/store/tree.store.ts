@@ -1,3 +1,4 @@
+import { baseURL } from "@/config";
 import { parseArrayToTree, parseTreeToArray } from "@/utils/tree-utils";
 import ky from "ky";
 import { create } from "zustand";
@@ -8,7 +9,7 @@ export const useTree = create((set) => ({
 
   addChild: async (newChild) => {
     const { id } = await (
-      await ky.post("/api/tree", { json: newChild })
+      await ky.post(baseURL + "/api/tree", { json: newChild })
     ).json();
     newChild.id = id;
     console.log(newChild);
@@ -21,7 +22,7 @@ export const useTree = create((set) => ({
   },
 
   editChild: async (child) => {
-    await (await ky.patch("/api/tree", { json: child })).json();
+    await (await ky.patch(baseURL + "/api/tree", { json: child })).json();
 
     return set((state) => {
       const array = parseTreeToArray(state.tree);
