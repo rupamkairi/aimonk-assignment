@@ -36,6 +36,7 @@ engine = create_engine(dbUrl, connect_args={'check_same_thread': False}, echo=Tr
 
 app = FastAPI()
 origins = [
+    "*",
     "http://localhost",
     "http://localhost:3000",
     "http://aimonk-assignment.vercel.app"
