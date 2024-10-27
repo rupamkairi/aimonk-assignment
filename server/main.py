@@ -38,6 +38,10 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "http://aimonk-assignment.vercel.app"
+    "https://aimonk-assignment.vercel.app"
+    "http://www.aimonk-assignment.vercel.app"
+    "https://www.aimonk-assignment.vercel.app"
 ]
 app.add_middleware(
     CORSMiddleware,
